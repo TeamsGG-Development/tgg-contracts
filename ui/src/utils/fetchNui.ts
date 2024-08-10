@@ -1,12 +1,10 @@
 import { isEnvBrowser } from './misc';
 
-const whitelist = [''];
-
 export async function fetchNui<T = any>(
 	eventName: string,
 	data?: any,
 	mockData?: T,
-	timeoutMilliseconds: number = 20000, // Default timeout of 10 seconds
+	timeoutMilliseconds: number = 20000, // Default timeout of 20 seconds
 ): Promise<T> {
 	const options = {
 		method: 'post',
@@ -31,12 +29,7 @@ export async function fetchNui<T = any>(
 		// Use Promise.race to implement a timeout
 		const timeoutPromise = new Promise<T>((_, reject) =>
 			setTimeout(() => {
-				if (whitelist.includes(eventName)) {
-					// Just ignore the error. This is a whitelist of events that are allowed to timeout.
-					// Handle specific case here if needed.
-				} else {
-					reject(new Error(`Request timed out - ${eventName}`));
-				}
+				reject(new Error(`Request timed out - ${eventName}`));
 			}, timeoutMilliseconds),
 		);
 
@@ -54,15 +47,10 @@ export async function fetchNui<T = any>(
 		return respFormatted;
 	} catch (error) {
 		// Handle exceptions and errors here
-		if (whitelist.includes(eventName)) {
-			// Just ignore the error. This is a whitelist of events that are allowed to timeout.
-			// Handle specific case here if needed.
-		} else {
-			console.error(
-				`An error occurred while processing '${eventName}':`,
-				error,
-			);
-		}
+		console.error(
+			`An error occurred while processing '${eventName}':`,
+			error,
+		);
 
 		throw error; // Rethrow the error so that the caller can handle it
 	}

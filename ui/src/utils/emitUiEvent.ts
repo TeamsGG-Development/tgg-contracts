@@ -1,16 +1,16 @@
 import { isEnvBrowser } from './misc';
 
-export interface DebugEvent<T = any> {
+export interface UIEvent<T = any> {
 	action: string;
 	data?: T;
 	internal?: boolean;
 }
 
 // Original function signature for an array of DebugEvents
-export function emitUiEvent<P>(events: DebugEvent<P>[], timer?: number): void;
+export function emitUiEvent<P>(events: UIEvent<P>[], timer?: number): void;
 
 // Overloaded function signature for a single DebugEvent
-export function emitUiEvent<P>(event: DebugEvent<P>, timer?: number): void;
+export function emitUiEvent<P>(event: UIEvent<P>, timer?: number): void;
 
 /**
  * Emulates dispatching an event using SendNuiMessage in the lua scripts.
@@ -21,7 +21,7 @@ export function emitUiEvent<P>(event: DebugEvent<P>, timer?: number): void;
  * @param force - Force the event to be dispatched even if not in browser
  */
 export function emitUiEvent<P>(
-	eventsOrEvent: DebugEvent<P> | DebugEvent<P>[],
+	eventsOrEvent: UIEvent<P> | UIEvent<P>[],
 	timer = 0,
 ): void {
 	const events = Array.isArray(eventsOrEvent)
