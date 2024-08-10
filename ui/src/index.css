@@ -1,0 +1,65 @@
+@import url('./variables.css');
+
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+
+  height: 100vh;
+
+  background-color: transparent !important;
+
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Small Desktops */
+@media (min-width: 992px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* Medium Desktops */
+@media (min-width: 1200px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+/* Large Desktops */
+@media (min-width: 1440px) {
+  body {
+    font-size: 22px;
+  }
+}
+
+/* Extra Large Desktops */
+@media (min-width: 1600px) {
+  body {
+    font-size: 24px;
+  }
+}
+
+/* Ultra-Wide Desktops */
+@media (min-width: 1920px) {
+  body {
+    font-size: 32px;
+  }
+}
