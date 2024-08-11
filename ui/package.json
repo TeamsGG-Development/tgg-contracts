@@ -12,9 +12,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/vara": "^1.1.4",
     "framer-motion": "^11.3.24",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.12",
+    "vara": "^1.4.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -22,6 +25,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.7.0",
     "eslint": "^9.9.0",
+    "@types/styled-components": "^5.1.34",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
