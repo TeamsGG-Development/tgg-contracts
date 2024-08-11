@@ -14,7 +14,6 @@ A simple FiveM resource that will give you the option to transfer vehicles betwe
 
 ### 💾 Download
 
-https://github.com/overextended/ox_lib/releases/latest/download/ox_lib.zip
 https://github.com/TeamsGG-Development/tgg-contracts/releases/latest/download/tgg-contracts.zip
 
 ### 📚 Installation
