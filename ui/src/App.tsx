@@ -11,7 +11,9 @@ import { useEffect } from 'react';
 const dummyContractData: IContractData = {
 	isSeller: true,
 	buyerName: 'John Doe',
+	buyerId: 1,
 	sellerName: 'Jane Doe',
+	sellerId: 2,
 	vehicleModel: '2021 Tesla Model S',
 	vehiclePlate: 'ABC123',
 	description: 'This is a dummy contract.',

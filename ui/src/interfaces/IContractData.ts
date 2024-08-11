@@ -1,8 +1,10 @@
 export interface IContractData {
-    isSeller: boolean;
+	isSeller: boolean;
 
 	sellerName: string;
+	sellerId: number;
 	buyerName: string;
+	buyerId: number;
 	vehicleModel: string;
 	vehiclePlate: string;
 	description: string;

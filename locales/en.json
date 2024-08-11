@@ -1,0 +1,13 @@
+{
+  "no_close_player": "No player found nearby.",
+  "no_close_vehicle": "No vehicle found nearby.",
+  "blacklisted_vehicle": "You can't transfer this vehicle.",
+  "contract": "Contract",
+  "not_owner": "You are not the owner of this vehicle.",
+  "no_money": "You don't have enough money to buy this vehicle.",
+  "buyer_no_money": "The buyer doesn't have enough money to buy this vehicle.",
+  "accepted_contract": "The contract has been accepted.",
+  "now_own_veh": "You now own a new vehicle.",
+  "declined_contract": "The contract has been declined.",
+  "no_contract": "You don't have any contract."
+}

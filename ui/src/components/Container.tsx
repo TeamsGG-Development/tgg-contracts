@@ -1,9 +1,10 @@
-import { IAgreementDetails } from '../interfaces/IAgreementDetails';
 import { IContractData } from '../interfaces/IContractData';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useNuiEvent } from '../hooks/useNuiEvent';
 import { Contract } from './Contract/Contract';
-import { useState } from 'react';
+import { isEnvBrowser } from '../utils/misc';
+import { fetchNui } from '../utils/fetchNui';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div.attrs({
@@ -15,31 +16,42 @@ const StyledContainer = styled.div.attrs({
 `;
 
 export const Container = () => {
-	const [sheetVisible, setSheetVisible] = useState(false);
+	const [contractVisible, setContractVisible] = useState(false);
 
 	const [contractData, setContractData] = useState<IContractData>();
 
-	useNuiEvent('ui:toggle-contract', (visible: boolean) =>
-		setSheetVisible(visible),
-	);
-
 	useNuiEvent('ui:start-contract', (_contractData) => {
 		setContractData(_contractData);
-		setSheetVisible(true);
+		setContractVisible(true);
 	});
 
 	useNuiEvent('ui:hide-contract', () =>
-		setSheetVisible(false),
+		setContractVisible(false),
 	);
 
-	useNuiEvent('ui:submit-sale-agreement', (data: IAgreementDetails) => {
-		setSheetVisible(true);
-	});
+	useEffect(() => {
+		// Only attach listener when we are visible
+		if (!contractVisible) return;
+
+		const keyHandler = (e: KeyboardEvent) => {
+			if (['Escape'].includes(e.code)) {
+				if (!isEnvBrowser()) {
+					e.preventDefault();
+
+					fetchNui('close');
+				}
+			}
+		};
+
+		window.addEventListener('keyup', keyHandler);
+
+		return () => window.removeEventListener('keyup', keyHandler);
+	}, [contractVisible]);
 
 	return (
 		<StyledContainer>
 			<AnimatePresence>
-				{sheetVisible && contractData && (
+				{contractVisible && contractData && (
 					<motion.div
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}

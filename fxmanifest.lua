@@ -4,11 +4,11 @@ game 'gta5'
 lua54 'yes'
 
 name 'tgg-contracts'
-description ''
+description 'Vehicle contracts to sell vehicles to other players.'
 author 'TeamsGG Development'
 version '1.0.0'
 
-ui_page "ui/build/index.html"
+ui_page 'ui/build/index.html'
 
 ox_libs {
     'locale',
@@ -16,20 +16,29 @@ ox_libs {
 
 shared_scripts {
     '@ox_lib/init.lua',
-    'shared/sh_main.lua',
+    'shared/init.lua',
     'config/*.lua'
 }
 
 client_script 'client/*.lua'
 
 files {
-    "ui/build/**/*",
+    'locales/*.json',
+    'ui/build/**/*',
 }
 
 server_scripts {
-    'server/*.lua',
+    '@oxmysql/lib/MySQL.lua',
+    'server/**/*.lua',
 }
 
 escrow_ignore {
-    "*",
+    '*',
+}
+
+dependencies {
+    '/server:6116',
+    '/onesync',
+    'oxmysql',
+    'ox_lib',
 }

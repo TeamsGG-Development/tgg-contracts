@@ -2,6 +2,7 @@ import { formatPrice, getFormatedDate } from '../../utils/misc';
 import { IContractData } from '../../interfaces/IContractData';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { fetchNui } from '../../utils/fetchNui';
 import { StyledSheet } from './StyledContract';
 import Vara from 'vara';
 
@@ -105,7 +106,16 @@ export const Contract = ({ contractData }: IContractProps) => {
 		);
 
 		setTimeout(() => {
-			console.log('Seller signed, sending to buyer');
+			fetchNui('signContractSeller', {
+				sellerId: contractData.sellerId,
+				buyerId: contractData.buyerId,
+				sellerName: contractData.sellerName,
+				buyerName: contractData.buyerName,
+				model: contractData.vehicleModel,
+				vehPlate: contractData.vehiclePlate,
+				description: description,
+				price: amountInput,
+			});
 		}, 1750);
 	};
 
@@ -129,7 +139,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 		);
 
 		setTimeout(() => {
-			console.log('Buyer signed');
+			fetchNui('signContractBuyer', {}, true);
 		}, 1750);
 	};
 
