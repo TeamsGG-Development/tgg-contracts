@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { StyledSheet } from './StyledContract';
 import Vara from 'vara';
 
+const varaFontSize = 30;
 const varaFont =
 	'https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Satisfy/SatisfySL.json';
 
@@ -42,9 +43,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 	const [sellerSigned, setSellerSigned] = useState(false);
 	const [buyerSigned, setBuyerSigned] = useState(false);
 
-	const [description, setDescription] = useState(
-		!contractData.isSeller ? contractData.description : '',
-	);
+	const [description, setDescription] = useState('');
 	const [amountInput, setAmountInput] = useState<number>();
 
 	useEffect(() => {
@@ -59,7 +58,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 					},
 				],
 				{
-					fontSize: 32,
+					fontSize: varaFontSize,
 				},
 			);
 		}
@@ -86,14 +85,18 @@ export const Contract = ({ contractData }: IContractProps) => {
 			varaFont,
 			[
 				{
-					duration: 1000,
 					text: contractData.sellerName,
 				},
 			],
 			{
-				fontSize: 32,
+				duration: 1000,
+				fontSize: varaFontSize,
 			},
 		);
+
+		setTimeout(() => {
+			console.log('Seller signed, sending to buyer');
+		}, 1750);
 	};
 
 	const onBuyerSignature = () => {
@@ -110,9 +113,14 @@ export const Contract = ({ contractData }: IContractProps) => {
 				},
 			],
 			{
-				fontSize: 32,
+				duration: 1000,
+				fontSize: varaFontSize,
 			},
 		);
+
+		setTimeout(() => {
+			console.log('Buyer signed');
+		}, 1750);
 	};
 
 	const date = getFormatedDate();
@@ -140,8 +148,8 @@ export const Contract = ({ contractData }: IContractProps) => {
 								following vehicle:{' '}
 								<div className="tgg-highlight">
 									{contractData.vehicleModel}
-								</div>{' '}
-								("Vehicle"), with Vehicle Identification Number{' '}
+								</div>
+								, with Vehicle Identification Number{' '}
 								<div className="tgg-highlight">
 									{contractData.vehiclePlate}
 								</div>
@@ -150,13 +158,17 @@ export const Contract = ({ contractData }: IContractProps) => {
 							</div>
 
 							<div className="tgg-vehicle-condition-wrapper">
-								<div
-									className="tgg-condition-input"
-									contentEditable={contractData.isSeller}
-									ref={descriptionRef}
-									onInput={handleDescriptionInput}
-									data-disabled={!contractData.isSeller}
-									data-placeholder="Enter the vehicle's condition and details"></div>
+								{!contractData.isSeller ? (
+									<div>Description: {contractData.description}</div>
+								) : (
+									<div
+										className="tgg-condition-input"
+										contentEditable={contractData.isSeller}
+										ref={descriptionRef}
+										onInput={handleDescriptionInput}
+										data-disabled={!contractData.isSeller}
+										data-placeholder="Enter the vehicle's condition and details"></div>
+								)}
 							</div>
 
 							<div className="tgg-paragraphs-wrapper">

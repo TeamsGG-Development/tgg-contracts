@@ -82,7 +82,7 @@ export const StyledSheet = styled.div.attrs({
 
 				width: 100%;
 				height: 100%;
-				padding: 3em 2em;
+				padding: 2em 2em;
 
 				.tgg-highlight {
 					display: inline-block;
@@ -100,12 +100,12 @@ export const StyledSheet = styled.div.attrs({
 					flex-direction: column;
 					justify-content: space-between;
 
-					padding: 0.5em 0 3em 0;
+					padding: 0 0 1.5em 0;
 
 					height: 100%;
 
 					.tgg-title {
-						font-size: 1.05em;
+						font-size: 1em;
 						font-weight: 400;
 						text-align: center;
 					}
@@ -144,7 +144,7 @@ export const StyledSheet = styled.div.attrs({
 							overflow-y: auto;
 							overflow-x: hidden;
 
-							font-size: 0.85em;
+							font-size: 0.95em;
 							line-height: 1;
 
 							padding-bottom: 0.25em;
@@ -153,6 +153,8 @@ export const StyledSheet = styled.div.attrs({
 								content: attr(data-placeholder);
 								color: #aaa;
 								font-size: 1.1em;
+								font-size: 0.95em;
+								line-height: 1;
 							}
 
 							/* Remove the cursor if data-disabled attr is true */
@@ -160,7 +162,7 @@ export const StyledSheet = styled.div.attrs({
 							&:hover {
 								cursor: pointer;
 							}
-							
+
 							&[data-disabled='true'] {
 								cursor: default;
 							}
@@ -168,7 +170,8 @@ export const StyledSheet = styled.div.attrs({
 							&:focus {
 								outline: none;
 								cursor: text;
-								font-size: 0.85em;
+								font-size: 0.95em;
+								line-height: 1;
 
 								border-color: rgba(0, 0, 0, 0.45);
 							}
@@ -244,20 +247,20 @@ export const StyledSheet = styled.div.attrs({
 					row-gap: 0.5em;
 
 					.tgg-label {
-						font-size: 0.65em;
+						font-size: 0.6em;
 						font-weight: 400;
 					}
 
 					#seller {
 						position: absolute;
-						top: -0.15em;
+						top: -0.275em;
 						left: 3.5em;
 
 						.tgg-sign-here {
 							position: absolute;
 
 							top: 0.45em;
-							left: 2.5em;
+							left: 1.5em;
 
 							font-size: 0.5em;
 							white-space: nowrap;
@@ -272,13 +275,13 @@ export const StyledSheet = styled.div.attrs({
 
 					#buyer {
 						position: absolute;
-						top: 1em;
+						top: 0.85em;
 						left: 3.5em;
 
 						.tgg-sign-here {
 							position: absolute;
 							top: 0.45em;
-							left: 2.5em;
+							left: 1.5em;
 
 							font-size: 0.5em;
 							white-space: nowrap;
