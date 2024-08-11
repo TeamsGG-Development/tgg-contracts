@@ -19,10 +19,9 @@ const initialMotion = {
 };
 
 const animateMotion = {
-	decelerate: 5,
 	translateX: '-50%',
 	translateY: '-50%',
-	rotate: '2deg',
+	rotate: '2.5deg',
 	opacity: 1,
 };
 
@@ -159,7 +158,9 @@ export const Contract = ({ contractData }: IContractProps) => {
 
 							<div className="tgg-vehicle-condition-wrapper">
 								{!contractData.isSeller ? (
-									<div>Description: {contractData.description}</div>
+									<div>
+										Description: {contractData.description}
+									</div>
 								) : (
 									<div
 										className="tgg-condition-input"
@@ -293,8 +294,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 					initial={initialMotion}
 					animate={{
 						...animateMotion,
-						rotate: '4deg',
-						decelerate: 500,
+						rotate: '5deg',
 					}}
 					exit={exitMotion}>
 					<PaperTexture />
