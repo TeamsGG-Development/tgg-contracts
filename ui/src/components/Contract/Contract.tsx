@@ -64,6 +64,15 @@ export const Contract = ({ contractData }: IContractProps) => {
 	}, []);
 
 	const handleDescriptionInput = (event: React.FormEvent<HTMLDivElement>) => {
+		if (sellerSigned) {
+			event.preventDefault();
+			if (descriptionRef.current) {
+				// Revert to the last known description to prevent any changes
+				descriptionRef.current.textContent = description;
+			}
+			return;
+		}
+
 		setDescription(event.currentTarget.textContent ?? '');
 	};
 
@@ -75,6 +84,8 @@ export const Contract = ({ contractData }: IContractProps) => {
 	};
 
 	const onSellerSign = () => {
+		if (!description?.trim() || !amountInput) return;
+
 		if (!contractData.isSeller || sellerSigned) return;
 
 		setSellerSigned(true);
@@ -167,7 +178,10 @@ export const Contract = ({ contractData }: IContractProps) => {
 										contentEditable={contractData.isSeller}
 										ref={descriptionRef}
 										onInput={handleDescriptionInput}
-										data-disabled={!contractData.isSeller}
+										data-disabled={
+											!contractData.isSeller ||
+											sellerSigned
+										}
 										data-placeholder="Enter the vehicle's condition and details"></div>
 								)}
 							</div>
@@ -189,6 +203,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 										<div className="tgg-amount-input-wrapper">
 											<input
 												type="number"
+												disabled={sellerSigned}
 												value={amountInput}
 												onChange={onAmountChange}
 												placeholder="Enter amount"
@@ -253,7 +268,12 @@ export const Contract = ({ contractData }: IContractProps) => {
 								</div>
 								<div id="seller" onClick={onSellerSign}>
 									{contractData.isSeller && !sellerSigned && (
-										<div className="tgg-sign-here">
+										<div
+											className="tgg-sign-here"
+											data-disabled={
+												!amountInput ||
+												!description?.trim()
+											}>
 											Sign here
 										</div>
 									)}

@@ -270,6 +270,11 @@ export const StyledSheet = styled.div.attrs({
 								cursor: pointer;
 								color: #000000ae;
 							}
+
+							&[data-disabled='true'] {
+								cursor: not-allowed;
+								color: #000;
+							}
 						}
 					}
 
