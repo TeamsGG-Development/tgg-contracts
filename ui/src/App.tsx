@@ -1,4 +1,5 @@
-import { VisibilityProvider } from './providers/VisibilityProvider';
+import { IContractData } from './interfaces/IContractData';
+import { Container } from './components/Container';
 import { emitUiEvent } from './utils/emitUiEvent';
 import { fetchNui } from './utils/fetchNui';
 import { useEffect } from 'react';
@@ -6,10 +7,20 @@ import { useEffect } from 'react';
 // ******************* //
 // BROWSER ONLY EVENTS //
 // ******************* //
+
+const dummyContractData: IContractData = {
+	buyerName: 'John Doe',
+	sellerName: 'Jane Doe',
+	vehicleModel: '2021 Tesla Model S',
+	vehiclePlate: 'ABC123',
+	dealPrice: 100000,
+};
+
 // This will set the NUI to visible if we are developing in browser.
 emitUiEvent(
 	{
-		action: 'ui:show',
+		action: 'ui:start-contract',
+		data: dummyContractData,
 	},
 	200,
 );
@@ -23,11 +34,7 @@ const App = () => {
 		fetchNui('nui:ready', null, true);
 	}, []);
 
-	return (
-		<VisibilityProvider>
-			<h1>Hello!</h1>
-		</VisibilityProvider>
-	);
+	return <Container />;
 };
 
 export default App;
