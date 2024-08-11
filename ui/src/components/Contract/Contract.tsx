@@ -1,8 +1,8 @@
 import { formatPrice, getFormatedDate } from '../../utils/misc';
 import { IContractData } from '../../interfaces/IContractData';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { StyledSheet } from './StyledContract';
-import { useState } from 'react';
 import Vara from 'vara';
 
 const varaFont =
@@ -37,10 +37,48 @@ interface IContractProps {
 }
 
 export const Contract = ({ contractData }: IContractProps) => {
+	const descriptionRef = useRef<HTMLDivElement>(null);
+
 	const [sellerSigned, setSellerSigned] = useState(false);
 	const [buyerSigned, setBuyerSigned] = useState(false);
 
+	const [description, setDescription] = useState(
+		!contractData.isSeller ? contractData.description : '',
+	);
+	const [amountInput, setAmountInput] = useState<number>();
+
+	useEffect(() => {
+		if (!contractData.isSeller) {
+			new Vara(
+				'#seller',
+				varaFont,
+				[
+					{
+						duration: 0,
+						text: contractData.sellerName,
+					},
+				],
+				{
+					fontSize: 32,
+				},
+			);
+		}
+	}, []);
+
+	const handleDescriptionInput = (event: React.FormEvent<HTMLDivElement>) => {
+		setDescription(event.currentTarget.textContent ?? '');
+	};
+
+	const onAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		// Only allow numbers
+		if (!/^\d+$/.test(event.target.value)) return;
+
+		setAmountInput(+event.target.value);
+	};
+
 	const onSellerSign = () => {
+		if (!contractData.isSeller || sellerSigned) return;
+
 		setSellerSigned(true);
 
 		new Vara(
@@ -48,6 +86,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 			varaFont,
 			[
 				{
+					duration: 1000,
 					text: contractData.sellerName,
 				},
 			],
@@ -58,6 +97,8 @@ export const Contract = ({ contractData }: IContractProps) => {
 	};
 
 	const onBuyerSignature = () => {
+		if (contractData.isSeller || buyerSigned) return;
+
 		setBuyerSigned(true);
 
 		new Vara(
@@ -108,13 +149,40 @@ export const Contract = ({ contractData }: IContractProps) => {
 								below:
 							</div>
 
+							<div className="tgg-vehicle-condition-wrapper">
+								<div
+									className="tgg-condition-input"
+									contentEditable={contractData.isSeller}
+									ref={descriptionRef}
+									onInput={handleDescriptionInput}
+									data-disabled={!contractData.isSeller}
+									data-placeholder="Enter the vehicle's condition and details"></div>
+							</div>
+
 							<div className="tgg-paragraphs-wrapper">
 								<div className="tgg-paragraph">
-									1. The total purchase price for the Vehicle
-									shall be{' '}
-									<div className="tgg-highlight">
-										${formatPrice(contractData.dealPrice)}
-									</div>
+									<span>
+										1. The total purchase price for the
+										Vehicle shall be{' '}
+									</span>
+									{!contractData.isSeller ? (
+										<div className="tgg-highlight">
+											$
+											{formatPrice(
+												contractData.dealPrice,
+											)}
+										</div>
+									) : (
+										<div className="tgg-amount-input-wrapper">
+											<input
+												type="number"
+												value={amountInput}
+												onChange={onAmountChange}
+												placeholder="Enter amount"
+											/>
+											{'$'}
+										</div>
+									)}
 									.
 								</div>
 
@@ -158,7 +226,8 @@ export const Contract = ({ contractData }: IContractProps) => {
 								<div className="tgg-highlight">{date.year}</div>{' '}
 								at{' '}
 								<div className="tgg-highlight">
-									{date.formattedHours}:{date.minutes}{date.period}
+									{date.formattedHours}:{date.minutes}
+									{date.period}
 								</div>{' '}
 								in, Los Santos
 							</div>
@@ -170,7 +239,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 									Seller: _______________________
 								</div>
 								<div id="seller" onClick={onSellerSign}>
-									{!sellerSigned && (
+									{contractData.isSeller && !sellerSigned && (
 										<div className="tgg-sign-here">
 											Sign here
 										</div>
@@ -182,7 +251,7 @@ export const Contract = ({ contractData }: IContractProps) => {
 									Buyer: _______________________
 								</div>
 								<div id="buyer" onClick={onBuyerSignature}>
-									{!buyerSigned && (
+									{!contractData.isSeller && !buyerSigned && (
 										<div className="tgg-sign-here">
 											Sign here
 										</div>
@@ -205,13 +274,20 @@ export const Contract = ({ contractData }: IContractProps) => {
 					<PaperTexture />
 				</motion.div>
 			</AnimatePresence>
-			<motion.div
-				className="tgg-sheet tgg-tilt-2"
-				initial={initialMotion}
-				animate={{ ...animateMotion, rotate: '4deg', decelerate: 10 }}
-				exit={exitMotion}>
-				<PaperTexture />
-			</motion.div>
+
+			<AnimatePresence>
+				<motion.div
+					className="tgg-sheet tgg-tilt-2"
+					initial={initialMotion}
+					animate={{
+						...animateMotion,
+						rotate: '4deg',
+						decelerate: 500,
+					}}
+					exit={exitMotion}>
+					<PaperTexture />
+				</motion.div>
+			</AnimatePresence>
 		</StyledSheet>
 	);
 };

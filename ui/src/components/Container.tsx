@@ -12,17 +12,6 @@ const StyledContainer = styled.div.attrs({
 	position: absolute;
 	width: 100%;
 	height: 100%;
-
-	.tgg-btns {
-		position: absolute;
-		top: 0;
-		right: 0;
-
-		display: flex;
-		justify-content: center;
-
-		z-index: 1000;
-	}
 `;
 
 export const Container = () => {
@@ -30,7 +19,7 @@ export const Container = () => {
 
 	const [contractData, setContractData] = useState<IContractData>();
 
-	useNuiEvent('ui:toggle-sheet', (visible: boolean) =>
+	useNuiEvent('ui:toggle-contract', (visible: boolean) =>
 		setSheetVisible(visible),
 	);
 
@@ -39,8 +28,8 @@ export const Container = () => {
 		setSheetVisible(true);
 	});
 
-	useNuiEvent('ui:hide-sheet', (visible: boolean) =>
-		setSheetVisible(visible),
+	useNuiEvent('ui:hide-contract', () =>
+		setSheetVisible(false),
 	);
 
 	useNuiEvent('ui:submit-sale-agreement', (data: IAgreementDetails) => {

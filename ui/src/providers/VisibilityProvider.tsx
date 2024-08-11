@@ -48,10 +48,6 @@ export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 		return () => window.removeEventListener('keyup', keyHandler);
 	}, [visible]);
 
-	const cleanupOnClose = () => {
-		// Чистачка моля
-	};
-
 	// Memoize the context value so it only changes when `visible` or `setVisible` changes.
 	const contextValue = useMemo(
 		() => ({ visible, setVisible }),
