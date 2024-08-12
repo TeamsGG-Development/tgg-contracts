@@ -1,4 +1,4 @@
-if GetResourceState('qbx_core'):find('start') or GetResourceState('qb-core'):find('start') then return end
+if GetResourceState('qbx_core'):find('start') or not GetResourceState('qb-core'):find('start') then return end
 
 lib.print.debug('Loading QBCore Framework')
 
