@@ -14,7 +14,7 @@ Framework.DoesOwnTheVeh = function(identifier, plate)
 end
 
 Framework.UpdateOwner = function(plate, owner)
-    return MySQL.update.await('UPDATE player_vehicles SET owner = ? WHERE plate = ?', {
+    return MySQL.update.await('UPDATE owned_vehicles SET owner = ? WHERE plate = ?', {
         owner,
         plate
     })
