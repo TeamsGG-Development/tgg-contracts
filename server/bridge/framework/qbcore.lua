@@ -63,4 +63,8 @@ Framework = {
             plate
         })
     end,
+
+    GiveKeys = function(id, plate)
+        exports['qb-vehiclekeys']:GiveKeys(id, plate)
+    end,
 }

@@ -19,3 +19,7 @@ Framework.UpdateOwner = function(plate, owner)
         plate
     })
 end
+
+Framework.GiveKeys = function(source, plate)
+    -- TODO: Implement
+end
