@@ -60,4 +60,8 @@ Framework = {
         local vehicleId = exports.qbx_vehicles:GetVehicleIdByPlate(plate)
         return exports.qbx_vehicles:SetPlayerVehicleOwner(vehicleId, owner)
     end,
+
+    GiveKeys = function(source, plate)
+        exports.qbx_vehiclekeys:GiveKeys(source, plate)
+    end,
 }
