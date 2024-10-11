@@ -1,3 +1,13 @@
+---@class ContractData
+---@field sellerId number
+---@field buyerId number
+---@field sellerName string
+---@field buyerName string
+---@field model string
+---@field vehPlate string
+---@field description string
+---@field price number
+
 Framework.RegisterUsableItem(Config.Item, function(source)
     local player = Framework.GetPlayerFromId(source)
     if not player then return end
@@ -16,7 +26,7 @@ local function insertLog(buyer, seller, vehDescription, vehPrice, plate)
 end
 
 --- Send contract to buyer
----@param data { sellerId: number, buyerId: number, sellerName: string, buyerName: string, model: string, vehPlate: string, description: string, price: number }
+---@param data ContractData
 RegisterNetEvent('tgg-contracts:server:sendContractToBuyer', function(data)
     local src = source
     local buyerSrc = data.buyerId
