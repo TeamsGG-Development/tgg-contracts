@@ -2,6 +2,8 @@ if not GetResourceState('qbx_core'):find('start') then return end
 
 lib.print.debug('Loading QBox Framework')
 
+assert(lib.checkDependency('qbx_vehicles', '1.4.1', true))
+
 Framework = {
     GetPlayerFromId = function(source)
         local xPlayer = {}
