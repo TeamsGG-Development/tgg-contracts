@@ -55,6 +55,7 @@ RegisterNetEvent('tgg-contracts:server:sendContractToBuyer', function(data)
         player.addAccountMoney('bank', data.price)
         insertLog(buyer.identifier, player.identifier, data.description, data.price, data.vehPlate)
         Framework.UpdateOwner(data.vehPlate, buyer.identifier)
+        Framework.GiveKeys(buyerSrc, data.vehPlate)
     else
         lib.notify(src, { id = 'contract_declined', description = locale('declined_contract'), type = 'error' })
     end

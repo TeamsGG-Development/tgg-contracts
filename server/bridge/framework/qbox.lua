@@ -57,9 +57,11 @@ Framework = {
     end,
 
     UpdateOwner = function(plate, owner)
-        return MySQL.update.await('UPDATE player_vehicles SET citizenid = ? WHERE plate = ?', {
-            owner,
-            plate
-        })
+        local vehicleId = exports.qbx_vehicles:GetVehicleIdByPlate(plate)
+        return exports.qbx_vehicles:SetPlayerVehicleOwner(vehicleId, owner)
+    end,
+
+    GiveKeys = function(source, plate)
+        exports.qbx_vehiclekeys:GiveKeys(source, plate)
     end,
 }
