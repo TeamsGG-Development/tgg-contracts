@@ -45,6 +45,7 @@ lib.callback.register('tgg-contracts:client:sendContractToBuyer', function(data)
     if not cache.vehicle then TaskStartScenarioInPlace(cache.ped, 'WORLD_HUMAN_CLIPBOARD', 0, false) end
 
     responseBuyer = nil
+
     local contract = {
         isSeller = false,
         buyerName = data.buyerName,
@@ -60,8 +61,13 @@ lib.callback.register('tgg-contracts:client:sendContractToBuyer', function(data)
     SendUIAction('ui:start-contract', contract)
     SetNuiFocus(true, true)
 
-    while not responseBuyer do Wait(0) end
-    return responseBuyer
+    while responseBuyer == nil do
+        Wait(0)
+    end
+
+    local response = responseBuyer
+    responseBuyer = nil
+    return response
 end)
 
 -- NUI Callbacks
